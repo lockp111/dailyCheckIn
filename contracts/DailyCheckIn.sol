@@ -9,7 +9,7 @@ error InvalidTime(uint start, uint end);
 error CheckInFinished();
 error InvalidBABT(uint256 tokenId, uint8 times);
 
-contract DailyCheck {
+contract DailyCheckIn {
     struct Log {
         uint8 checkTimes;
         uint lastCheck;

@@ -1,24 +1,24 @@
 import { ethers, upgrades } from "hardhat";
 
-export async function deployDailyCheck(nftAddr: string, start: number) {
-    const DailyCheck = await ethers.getContractFactory("DailyCheck");
-    const dailyCheck = await DailyCheck.deploy(nftAddr, start);
-    await dailyCheck.deployed();
-    return dailyCheck;
+export async function deployDailyCheckIn(nftAddr: string, start: number) {
+    const DailyCheckIn = await ethers.getContractFactory("DailyCheckIn");
+    const dailyCheckIn = await DailyCheckIn.deploy(nftAddr, start);
+    await dailyCheckIn.deployed();
+    return dailyCheckIn;
 }
 
 export async function deployNFT() {
-    const BNFT = await ethers.getContractFactory("BNFT");
-    const bnft = await upgrades.deployProxy(BNFT, [], { initializer: 'initialize' });
-    await bnft.deployed();
-    return bnft;
+    const BABT = await ethers.getContractFactory("BABT");
+    const babt = await upgrades.deployProxy(BABT, [], { initializer: 'initialize' });
+    await babt.deployed();
+    return babt;
 }
 
 export async function deployTest() {
     const [_, player1, player2] = await ethers.getSigners();
-    const bnft = await deployNFT()
+    const babt = await deployNFT()
     const now = Math.floor(Date.now() / 1000);
-    const dailyCheck = await deployDailyCheck(bnft.address, now);
-    await bnft.mint(player2.address);
-    return { dailyCheck, bnft, player1, player2 };
+    const dailyCheckIn = await deployDailyCheckIn(babt.address, now);
+    await babt.mint(player2.address);
+    return { dailyCheckIn, babt, player1, player2 };
 }
